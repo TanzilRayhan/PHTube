@@ -23,21 +23,23 @@
                     <button class="btn btn-active btn-ghost">Sort by view</button>
                 </div>
                 <div class="">
-                    <button class="btn btn-active bg-red-800 text-white">Blog</button>
+                    <a href="blog.html"><button class="btn btn-active bg-red-800 text-white">Blog</button></a>
                 </div>
             </div>
             <hr>
         </nav>
+    </header>
+
+    <main>
         <!-- tab  -->
         <div class="tab-container w-full ">
             <div id="tab-container" class=" gap-2 mt-10 lg:w-96 m-auto text-center flex justify-center">
                 <!-- <a class="tab tab-active">Tab 2</a>  -->
             </div>
         </div>
-        <main>
-            <section class="m-10">
-                <div id="card-container" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
-                    <!-- <div class=" w-80 bg-base-100">
+        <section class="m-10">
+            <div id="card-container" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
+                <!-- <div class=" w-80 bg-base-100">
                         <figure>
                             <div class="relative">
                                 <img src="./Images/thumbnails-1.png" />
@@ -65,10 +67,19 @@
                             </div>
                         </div>
                     </div> -->
-            </section>
-        </main>
+        </section>
+        
+        <section id="no-content">
+            <!-- <div class="flex items-center justify-center flex-col mt-20 ">
+                <img src="./Images/Icon.png">
+                <h1 class="font-bold text-3xl text-center mt-4">
+                    Oops!! Sorry, There is no <br> content here
+                </h1>
+            </div> -->
+        </section>
+    </main>
 
-        <script src="index.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

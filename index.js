@@ -21,6 +21,26 @@ const loadData = async (id) => {
     const cardContainer = document.getElementById("card-container")
     cardContainer.innerHTML = "";
 
+    if(data.data.length === 0){
+        const noContent = document.getElementById("no-content");
+        noContent.innerHTML = "";
+        const div = document.createElement("div");
+        div.innerHTML = `
+        <div class="flex items-center justify-center flex-col mt-20 ">
+        <img src="./Images/Icon.png">
+        <h1 class="font-bold text-3xl text-center mt-4">
+            Oops!! Sorry, There is no <br> content here
+        </h1>
+        </div>
+        `;
+        noContent.appendChild(div);
+    }
+    else{
+        // const noContent = document.getElementById("no-content").classList.add('hidden');
+        // noContent.innerHTML = "";
+        
+    }
+
     data.data?.forEach((videos) => {
         const div = document.createElement("div");
         div.innerHTML = ` 
@@ -44,7 +64,7 @@ const loadData = async (id) => {
                 <div>
                 <h3 class="flex items-center gap-1 my-1">
                 ${videos.authors[0].profile_name}
-                <div id="badge"><img src=${videos.authors[0].verified ? videos.authors[0].verified : "./Images/verified.png"} ></div>
+                <div id="badge"><img src="./images/verified.png">${videos.authors[0].verified ? videos.authors[0].verified : ""}</div>
                     </h3>
             <p>${videos.others.views} views</p>
             </div>
@@ -53,8 +73,9 @@ const loadData = async (id) => {
         </div>
       </div>
         `;
-        cardContainer.append(div)
+        cardContainer.append(div);
     })
+    
 }
 
 const timeConvert = async (seconds) => {
