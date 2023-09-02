@@ -11,7 +11,6 @@ const functionCategory = async () => {
         tabContainer.append(div)
     });
 
-
 }
 
 const loadData = async (id) => {
@@ -24,13 +23,13 @@ const loadData = async (id) => {
     cardContainer.innerHTML = "";
 
     data.data?.forEach((videos) => {
-        let convertTime = timeConvert(parseInt(videos.others.posted_date || 0))
+        let postTime = timeConvert(parseInt(videos.others.posted_date || 0))
         const div = document.createElement("div");
         div.innerHTML = ` 
         <div class=" mb-5 bg-base-100">
         <figure class="w-full relative">
             <img class="rounded-md h-52 w-full" src=${videos.thumbnail}/>
-            <span class="text-xs text-white rounded-md p-1 absolute bg-black bottom-0 right-0 ">${convertTime}</span>
+            <span class="text-xs text-white rounded-md p-1 absolute bg-black bottom-0 right-0 ">${postTime}</span>
         </figure>
         <div class="flex gap-5 mt-3">
             <div class="avatar">
@@ -84,5 +83,68 @@ function timeConvert(seconds) {
     let postedTime = ` ${hours} hrs ${minutes} min ago`;
     return postedTime;
 }
+
+let sortView = async (id = '1000') => {
+    let viewData = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
+    let dataPass = await viewData.json();
+    let dataPass2 = dataPass.data;
+    dataSort(dataPass2);
+}
+
+let dataSort = data => {
+
+    data.forEach((videos) => {
+
+        let str = videos.others.views;
+        let modStr = str.slice(0, -1);
+        let viewsValue = parseInt(modStr)
+        videos.others.views = viewsValue;
+
+    })
+
+    data.sort((a, b) => {
+        return b.others.views - a.others.views;
+    })
+
+    const cardContainer = document.getElementById("card-container")
+    cardContainer.innerHTML = "";
+
+    data.forEach((videos) => {
+        let postTime = timeConvert(parseInt(videos.others.posted_date || 0))
+        const div = document.createElement("div");
+        div.innerHTML = ` 
+        <div class=" mb-5 bg-base-100">
+        <figure class="w-full relative">
+            <img class="rounded-md h-52 w-full" src=${videos.thumbnail}/>
+            <span class="text-xs text-white rounded-md p-1 absolute bg-black bottom-0 right-0 ">${postTime}</span>
+        </figure>
+        <div class="flex gap-5 mt-3">
+            <div class="avatar">
+                <div class="w-12 h-12 ">
+                <img class="rounded-full" src=${videos?.authors[0].profile_picture} />
+                </div>
+            </div>
+            <div class="">
+                <h2 class="font-bold">
+                  ${videos.title}
+                </h2>
+                <div>
+                <h3 class="flex items-center gap-1 my-1">
+                ${videos.authors[0].profile_name}
+                <div id="badge"><img src=${videos.authors[0].verified ? "./images/verified.png" : " "}></div>
+                    </h3>
+            <p>${videos.others.views}K views</p>
+            </div>
+
+              </div>
+        </div>
+      </div>
+        `;
+        cardContainer.append(div);
+    })
+
+}
+
 functionCategory();
+
 loadData("1000");
